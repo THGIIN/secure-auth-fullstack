@@ -1,0 +1,79 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --surface: 210 20% 98%;
+  --surface-elevated: 0 0% 100%;
+  --border: 214 20% 88%;
+  --accent: 187 72% 38%;
+  --accent-foreground: 210 20% 98%;
+  --foreground: 222 47% 11%;
+  --muted: 215 16% 40%;
+  --ease-ios-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-ios: cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.dark {
+  --surface: 222 47% 6%;
+  --surface-elevated: 222 40% 9%;
+  --border: 217 19% 18%;
+  --accent: 187 85% 53%;
+  --accent-foreground: 222 47% 6%;
+  --foreground: 210 20% 98%;
+  --muted: 217 10% 64%;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    @apply min-h-dvh bg-surface text-foreground antialiased;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  [data-sonner-toast] {
+    animation: ios-toast-enter 0.48s var(--ease-ios-out) both !important;
+  }
+}
+
+@keyframes ios-toast-enter {
+  from {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@layer utilities {
+  .glass-panel {
+    @apply border border-white/10 bg-white/70 shadow-ios-card backdrop-blur-2xl backdrop-saturate-150 dark:border-white/5 dark:bg-zinc-900/55 dark:shadow-ios-card-dark;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  [data-sonner-toast] {
+    animation: none !important;
+  }
+}
